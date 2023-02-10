@@ -23,7 +23,6 @@ async function storeData(setData) {
     }  
   );
   setData(response.entries.map(entry => {
-    console.log(entry);
     return [entry.title, entry.location];
   }));
 }
