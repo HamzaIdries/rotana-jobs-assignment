@@ -8,12 +8,14 @@
     "@extractus/feed-extractor": "^6.2.1",
     "@mui/icons-material": "^5.11.0",
     "@mui/material": "^5.11.8",
+    "@react-google-maps/api": "^2.18.1",
+    "cors": "^2.8.5",
     "express": "^4.18.2",
     "mui-datatables": "^4.3.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1",
-    "rss-parser": "^3.12.0"
+    "react-geocode": "^0.2.3",
+    "react-scripts": "5.0.1"
   },
   "scripts": {
     "start": "node ./src/server.js",

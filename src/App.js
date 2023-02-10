@@ -1,9 +1,10 @@
 import { AppBar, Button, Toolbar, Typography } from "@mui/material";
 import MapIcon from '@mui/icons-material/Map';
-import MUIDataTable from "mui-datatables";
-import { Box } from "@mui/system";
+import TableViewIcon from '@mui/icons-material/TableView';
 import { extract } from '@extractus/feed-extractor'
 import { useEffect, useState } from "react";
+import TableView from "./TableView";
+import MapView from "./MapView";
 
 const columns = ['Job Title', 'Location'];
 
@@ -29,6 +30,7 @@ async function storeData(setData) {
 
 function App() {
   const [data, setData] = useState([]);
+  const [view, setView] = useState('table');
 
   useEffect(() => {
     storeData(setData);
@@ -41,22 +43,36 @@ function App() {
           <Typography variant="h6" flexGrow={1}>
             Rotana Jobs
           </Typography>
-          <Button color="inherit">
-            <MapIcon />
-            Switch to map view
+          <Button color="inherit" onClick={() => {
+            if (view === 'table'){
+              setView('map');
+            } else {
+              setView('table');
+            }
+          }}>
+            {
+              view === 'table'
+              ?
+              <div>
+                <MapIcon /> Switch to map view
+              </div>
+              :
+              <div>
+                <TableViewIcon /> Switch to table view
+              </div>
+            }
+            
           </Button>
         </Toolbar>
       </AppBar>
 
-      <Box component='main' sx={{p: 3}}>
-        <MUIDataTable
-          columns={columns}
-          data={data}
-          options={{
-            selectableRows: 'none'
-          }}
-        />
-      </Box>
+      {
+        view === 'table'
+          ?
+          <TableView columns={columns} data={data} />
+          :
+          <MapView data={data} />
+      }
     </div>
   );
 }
