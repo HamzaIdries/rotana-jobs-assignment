@@ -25,7 +25,8 @@ async function geocodeAllAddresses(addresses) {
    const addressToLocation = {};
    addresses = addresses.map(async address => {
       return geocodeAddress(address)
-         .then(location => addressToLocation[address] = location);
+         .then(location => addressToLocation[address] = location)
+         .catch(err => console.log(err));
    });
    await Promise.all(addresses);
    return addressToLocation;
@@ -63,7 +64,7 @@ setInterval(updateData, 1000 * 60 * 30);
 
 const app = express();
 app.use(cors());
-const port = process.env.PORT || 8080; 
+const port = process.env.PORT || 3000; 
 app.use(express.static(publicPath));
 
 app.get('*', (req, res) => {
