@@ -6,34 +6,18 @@ import { useEffect, useState } from "react";
 import TableView from "./TableView";
 import MapView from "./MapView";
 
-const columns = ['Job Title', 'Location'];
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
-async function storeData(setData) {
-  const CORS_PROXY = 'https://hamza-cors.herokuapp.com/';
-  const URL = "https://www.rotanacareers.com/live-bookmarks/all-rss.xml";
-  const response = await extract(
-    CORS_PROXY + URL,
-    {
-      getExtraEntryFields: feedData => {
-        const city = feedData.city;
-        const country = feedData.country;
-        return {
-          location: city ? `${city}, ${country}` : country
-        };
-      }
-    }  
-  );
-  setData(response.entries.map(entry => {
-    return [entry.title, entry.location];
-  }));
-}
+const columns = ['Job Title', 'Location'];
 
 function App() {
   const [data, setData] = useState([]);
   const [view, setView] = useState('table');
-
+  
   useEffect(() => {
-    storeData(setData);
+    fetch(`${backendUrl}/data.json`)
+      .then(res => res.json())
+      .then(data => setData(data));
   }, []);
 
   return (
@@ -69,7 +53,7 @@ function App() {
       {
         view === 'table'
           ?
-          <TableView columns={columns} data={data} />
+          <TableView columns={columns} data={data.map( ({title, location}) => [title, location] )} />
           :
           <MapView data={data} />
       }
