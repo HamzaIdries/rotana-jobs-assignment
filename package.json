@@ -16,7 +16,6 @@
     "mui-datatables": "^4.3.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-geocode": "^0.2.3",
     "react-scripts": "5.0.1"
   },
   "scripts": {
