@@ -60,7 +60,7 @@ async function updateData() {
 }
 
 updateData();
-setInterval(updateData, 1000 * 60 * 30);
+setInterval(updateData, 1000 * 60 * 60);
 
 const app = express();
 app.use(cors());
